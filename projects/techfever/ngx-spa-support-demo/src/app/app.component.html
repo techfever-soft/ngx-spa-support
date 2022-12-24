@@ -1,0 +1,44 @@
+<!-- <div style="position: fixed">
+  <ul>
+    <li *ngFor="let link of subscribedMenu">
+      <span>{{ link.active ? "active" : "" }}</span>
+      <a href="javascript:void(0)" (click)="triggerScroll(link.link)">{{
+        link.title
+      }}</a>
+    </li>
+  </ul>
+</div> -->
+<div style="position: fixed; display: block">
+  <ul
+    style="
+      position: relative;
+      display: flex;
+      list-style: none;
+      width: 100px;
+      padding: 0;
+      overflow: auto;
+    "
+    id="menu"
+  >
+    <li
+      *ngFor="let item of subscribedMenu"
+      style="margin: 0 10px"
+      [class]="item.active ? 'active' : ''"
+    >
+      <span>{{ item.active ? "active" : "" }}</span>
+      <a href="javascript:void(0)" (click)="triggerScroll(item)">{{
+        item.title
+      }}</a>
+    </li>
+  </ul>
+</div>
+
+<span id="scrollable">
+  <section id="link1">my dynamic content 1</section>
+
+  <section id="link2">my dynamic content 2</section>
+
+  <section id="link3">my dynamic content 3</section>
+
+  <section id="link4">my dynamic content 4</section>
+</span>

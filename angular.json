@@ -3,5 +3,138 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "@techfever/ngx-spa-support": {
+      "projectType": "library",
+      "root": "projects/techfever/ngx-spa-support",
+      "sourceRoot": "projects/techfever/ngx-spa-support/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/techfever/ngx-spa-support/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/techfever/ngx-spa-support/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/techfever/ngx-spa-support/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/techfever/ngx-spa-support/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "@techfever/ngx-spa-support-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/techfever/ngx-spa-support-demo",
+      "sourceRoot": "projects/techfever/ngx-spa-support-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/techfever/ngx-spa-support-demo",
+            "index": "projects/techfever/ngx-spa-support-demo/src/index.html",
+            "main": "projects/techfever/ngx-spa-support-demo/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/techfever/ngx-spa-support-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/techfever/ngx-spa-support-demo/src/favicon.ico",
+              "projects/techfever/ngx-spa-support-demo/src/assets"
+            ],
+            "styles": [
+              "projects/techfever/ngx-spa-support-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "@techfever/ngx-spa-support-demo:build:production"
+            },
+            "development": {
+              "browserTarget": "@techfever/ngx-spa-support-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "@techfever/ngx-spa-support-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/techfever/ngx-spa-support-demo/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/techfever/ngx-spa-support-demo/src/favicon.ico",
+              "projects/techfever/ngx-spa-support-demo/src/assets"
+            ],
+            "styles": [
+              "projects/techfever/ngx-spa-support-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "d49f5bf3-237e-4605-911f-974239e99b6d"
   }
 }

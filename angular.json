@@ -63,7 +63,8 @@
               "projects/techfever/ngx-spa-support-demo/src/assets"
             ],
             "styles": [
-              "projects/techfever/ngx-spa-support-demo/src/styles.scss"
+              "projects/techfever/ngx-spa-support-demo/src/styles.scss",
+              "node_modules/highlight.js/styles/androidstudio.css"
             ],
             "scripts": []
           },

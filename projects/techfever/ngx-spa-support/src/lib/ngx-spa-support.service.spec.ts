@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NgxSpaSupportService } from './2-ngx-spa-support.service';
+import { NgxSpaSupportService } from './ngx-spa-support.service';
 
 describe('NgxSpaSupportService', () => {
   let service: NgxSpaSupportService;

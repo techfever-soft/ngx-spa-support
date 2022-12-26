@@ -1,0 +1,227 @@
+<div class="scrollable-menu">
+  <ul id="menu">
+    <li
+      *ngFor="let item of subscribedMenu"
+      [class]="item.active ? 'active' : ''"
+    >
+      <a
+        *ngIf="!item.active"
+        mat-button
+        href="javascript:void(0)"
+        (click)="triggerScroll(item)"
+        >{{ item.data["title"] }}</a
+      >
+      <a
+        *ngIf="item.active"
+        mat-raised-button
+        color="accent"
+        href="javascript:void(0)"
+        ><mat-icon>check_circle</mat-icon> {{ item.data["title"] }}</a
+      >
+    </li>
+  </ul>
+</div>
+
+<div class="scrollable-sections" id="scrollable">
+  <section id="link1">
+    <mat-card>
+      <div class="text-center mat-typography">
+        <h2 class="mat-h2">Section scroll</h2>
+        <p class="mat-p text-muted">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
+          veniam totam modi? Doloribus illo minima soluta iste placeat quaerat
+          voluptas, ab deleniti vitae saepe quibusdam numquam repellat
+          aspernatur nulla magni.
+        </p>
+        <button
+          mat-button
+          [color]="firstSectionCodeExpanded ? 'warn' : 'default'"
+          (click)="firstSectionCodeExpanded = !firstSectionCodeExpanded"
+        >
+          <mat-icon>{{ firstSectionCodeExpanded ? "close" : "code" }}</mat-icon>
+          {{ firstSectionCodeExpanded ? "Hide code" : "Show code" }}
+        </button>
+      </div>
+
+      <div *ngIf="firstSectionCodeExpanded">
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="HTML">
+            <pre><code [highlight]="firstContentHTML" [languages]="['html']"></code></pre>
+          </mat-tab>
+          <mat-tab label="TS">
+            <pre><code [highlight]="firstContentTS" [languages]="['typescript']"></code></pre>
+          </mat-tab>
+          <mat-tab label="SCSS">
+            <pre><code [highlight]="firstContentSCSS" [languages]="['scss']"></code></pre>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+      <div class="text-center mt-20">
+        <div>
+          <button
+            mat-button
+            color="accent"
+            (click)="triggerScrollById('#link2')"
+          >
+            <mat-icon>arrow_downward</mat-icon> Go to next section
+          </button>
+        </div>
+        <div>
+          <button
+            mat-button
+            color="accent"
+            (click)="triggerScrollById('#link3')"
+          >
+            <mat-icon>last_page</mat-icon> Go to last section
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </section>
+
+  <section id="link2">
+    <mat-card>
+      <div class="text-center mat-typography">
+        <h2 class="mat-h2">Menu scroll</h2>
+        <p class="mat-p text-muted">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
+          veniam totam modi? Doloribus illo minima soluta iste placeat quaerat
+          voluptas, ab deleniti vitae saepe quibusdam numquam repellat
+          aspernatur nulla magni.
+        </p>
+        <button
+          mat-button
+          [color]="secondSectionCodeExpanded ? 'warn' : 'default'"
+          (click)="secondSectionCodeExpanded = !secondSectionCodeExpanded"
+        >
+          <mat-icon>{{
+            secondSectionCodeExpanded ? "close" : "code"
+          }}</mat-icon>
+          {{ secondSectionCodeExpanded ? "Hide code" : "Show code" }}
+        </button>
+      </div>
+
+      <div *ngIf="secondSectionCodeExpanded">
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="HTML">
+            <pre><code [highlight]="secondContentHTML" [languages]="['html']"></code></pre>
+          </mat-tab>
+          <mat-tab label="TS">
+            <pre><code [highlight]="secondContentTS" [languages]="['typescript']"></code></pre>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+      <div class="text-center mt-20">
+        <div>
+          <button
+            mat-button
+            color="accent"
+            (click)="triggerScrollById('#link1')"
+          >
+            <mat-icon>arrow_upward</mat-icon> Go to previous section
+          </button>
+        </div>
+        <div>
+          <button
+            mat-button
+            color="accent"
+            (click)="triggerScrollById('#link3')"
+          >
+            <mat-icon>arrow_downward</mat-icon> Go to next section
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </section>
+
+  <section id="link3">
+    <mat-card>
+      <div class="text-center">
+        <h2 class="mat-h2">Dynamic sections</h2>
+        <p class="mat-p text-muted">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
+          veniam totam modi? Doloribus illo minima soluta iste placeat quaerat
+          voluptas, ab deleniti vitae saepe quibusdam numquam repellat
+          aspernatur nulla magni.
+        </p>
+        <div class="text-center mt-20">
+          <div class="mb-20">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="addScrollAnchor()"
+            >
+              <mat-icon>add</mat-icon> Add a section
+            </button>
+          </div>
+          <div>
+            <button
+              mat-button
+              color="accent"
+              (click)="triggerScrollById('#link1')"
+            >
+              <mat-icon>first_page</mat-icon> Go to first section
+            </button>
+          </div>
+          <div>
+            <button
+              mat-button
+              color="accent"
+              (click)="triggerPreviousAnchor()"
+            >
+              <mat-icon>arrow_upward</mat-icon> Go to previous section
+            </button>
+            <div>
+              <button
+                mat-button
+                color="accent"
+                (click)="triggerNextAnchor()"
+                [disabled]="!dynamicSections.length"
+              >
+                <mat-icon>arrow_downward</mat-icon> Go to next section
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </section>
+
+  <section
+    *ngFor="let section of dynamicSections; last as last"
+    [id]="section.data['rawLink']"
+  >
+    <h2 class="mat-h2">{{ section.data["title"] }}</h2>
+    <div class="mb-20">
+      <button mat-raised-button color="primary" (click)="addScrollAnchor()">
+        <mat-icon>add</mat-icon> Add a section
+      </button>
+    </div>
+    <div class="mb-20">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="deleteSectionById(section.link)"
+      >
+        <mat-icon>delete</mat-icon> Delete section
+      </button>
+    </div>
+    <div>
+      <button mat-button color="accent" (click)="triggerPreviousAnchor()">
+        <mat-icon>arrow_upward</mat-icon> Go to previous section
+      </button>
+    </div>
+    <div>
+      <button
+        mat-button
+        color="accent"
+        [disabled]="last"
+        (click)="triggerNextAnchor()"
+      >
+        <mat-icon>arrow_downward</mat-icon> Go to next section
+      </button>
+    </div>
+  </section>
+</div>

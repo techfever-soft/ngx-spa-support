@@ -1,44 +1,32 @@
-<!-- <div style="position: fixed">
-  <ul>
-    <li *ngFor="let link of subscribedMenu">
-      <span>{{ link.active ? "active" : "" }}</span>
-      <a href="javascript:void(0)" (click)="triggerScroll(link.link)">{{
-        link.title
-      }}</a>
-    </li>
-  </ul>
-</div> -->
-<div style="position: fixed; display: block">
-  <ul
-    style="
-      position: relative;
-      display: flex;
-      list-style: none;
-      width: 100px;
-      padding: 0;
-      overflow: auto;
-    "
-    id="menu"
-  >
-    <li
-      *ngFor="let item of subscribedMenu"
-      style="margin: 0 10px"
-      [class]="item.active ? 'active' : ''"
-    >
-      <span>{{ item.active ? "active" : "" }}</span>
-      <a href="javascript:void(0)" (click)="triggerScroll(item)">{{
-        item.title
-      }}</a>
-    </li>
-  </ul>
-</div>
+<mat-drawer-container>
+  <mat-drawer> </mat-drawer>
 
-<span id="scrollable">
-  <section id="link1">my dynamic content 1</section>
+  <div class="wrapper">
+    <div class="text-center mt-20 mb-20">
+      <h2 class="mat-h2">ngx-spa-support</h2>
+      <p class="mat-caption">
+        A package to simplify the use of single page applications
+      </p>
 
-  <section id="link2">my dynamic content 2</section>
+      <a mat-button color="accent" disabled>
+        <mat-icon>link</mat-icon> Support our work (soon)
+      </a>
+    </div>
 
-  <section id="link3">my dynamic content 3</section>
+    <mat-tab-group dynamicHeight (selectedTabChange)="changeTab($event)">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>category</mat-icon>&nbsp;Example
+        </ng-template>
 
-  <section id="link4">my dynamic content 4</section>
-</span>
+        <app-example></app-example>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>description</mat-icon>&nbsp;Documentation
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</mat-drawer-container>

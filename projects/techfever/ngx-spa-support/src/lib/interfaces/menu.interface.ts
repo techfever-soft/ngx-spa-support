@@ -3,12 +3,18 @@ export interface MenuConfig {
   scrollingBehavior?: ScrollBehavior | 'smooth' | 'auto';
   useMenuScrolling?: boolean;
   sectionMargin?: number;
-  fullSectionScroll?: boolean;
+  // autoScrolling?: boolean;
+  // fullSectionScroll?: boolean;
+  linkElementsPrefix?: string;
+  scrollableElementId?: string;
+  menuElementId?: string;
 }
 
 export interface MenuItem {
-  title: string;
   link: string;
   active: boolean;
-  element: HTMLElement | null;
+  element?: HTMLElement | null;
+  data: {
+    [key: string]: any;
+  };
 }

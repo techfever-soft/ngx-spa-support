@@ -10,23 +10,28 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExampleComponent,
+    DocumentationComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    
     MatTabsModule,
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
     MatCardModule,
-    HighlightModule,
+    MatDividerModule,
 
+    HighlightModule,
     NgxSpaSupportModule,
   ],
   providers: [
@@ -38,6 +43,7 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
           xml: () => import('highlight.js/lib/languages/xml'),
           typescript: () => import('highlight.js/lib/languages/typescript'),
           scss: () => import('highlight.js/lib/languages/scss'),
+          shell: () => import('highlight.js/lib/languages/shell'),
         },
       },
     },

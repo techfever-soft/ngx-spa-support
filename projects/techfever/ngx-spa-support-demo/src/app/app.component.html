@@ -2,30 +2,25 @@
   <mat-drawer> </mat-drawer>
 
   <div class="wrapper">
-    <div class="text-center mt-20 mb-20">
-      <h2 class="mat-h2">ngx-spa-support</h2>
-      <p class="mat-caption">
-        A package to simplify the use of single page applications
-      </p>
-
-      <a mat-button color="accent" disabled>
-        <mat-icon>link</mat-icon> Support our work (soon)
-      </a>
-    </div>
-
-    <mat-tab-group dynamicHeight (selectedTabChange)="changeTab($event)">
+    <mat-tab-group
+      #tabGroup
+      dynamicHeight
+      (selectedTabChange)="changeTab($event)"
+    >
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon>category</mat-icon>&nbsp;Example
         </ng-template>
 
-        <app-example></app-example>
+        <app-example [tabGroup]="tabGroup"></app-example>
       </mat-tab>
 
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon>description</mat-icon>&nbsp;Documentation
         </ng-template>
+
+        <app-documentation></app-documentation>
       </mat-tab>
     </mat-tab-group>
   </div>

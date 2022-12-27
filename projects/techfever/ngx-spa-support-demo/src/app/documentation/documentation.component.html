@@ -1,0 +1,64 @@
+<div class="container">
+  <mat-card>
+    <div class="text-center">
+      <h3 class="mat-h3">Getting started</h3>
+    </div>
+
+    <p class="mat-p">Get the package</p>
+    <pre><code [highlight]="'npm i -s @techfever/ngx-spa-support'" [languages]="['shell']"></code></pre>
+
+    <p class="mat-p">Add it to your AppModule</p>
+    <pre><code [highlight]="addToModuleCode" [languages]="['typescript']"></code></pre>
+
+    <p class="mat-p">Add a little style to see sections renders properly</p>
+    <pre><code [highlight]="useInStyleCode" [languages]="['scss']"></code></pre>
+
+    <p class="mat-p">Use the service in your template</p>
+    <pre><code [highlight]="useInTemplateCode" [languages]="['html']"></code></pre>
+
+    <p class="mat-p">Use the service in your component</p>
+    <pre><code [highlight]="useInComponentCode" [languages]="['typescript']"></code></pre>
+  </mat-card>
+
+  <mat-card>
+    <div class="text-center">
+      <h3 class="mat-h3">Usage</h3>
+    </div>
+
+    <h4 class="mat-h4">Interfaces</h4>
+    <div *ngFor="let interface of interfaces">
+      <h5 class="mat-h5">{{ interface.name }}</h5>
+      <div *ngFor="let property of interface.properties">
+        <pre><code>{{ property.name }}: <span class="text-muted">{{ property.type }}</span></code></pre>
+      </div>
+    </div>
+
+    <div class="mt-20 mb-20">
+      <mat-divider></mat-divider>
+    </div>
+
+    <h4 class="mat-h4">Methods</h4>
+    <div *ngFor="let method of serviceMethods">
+      <pre><code>{{ method.name + method.signature }}</code></pre>
+      <p class="mat-caption text-muted">
+        {{ method.description }}
+      </p>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="text-center">
+      <h3 class="mat-h3">Todos</h3>
+    </div>
+
+    <ul>
+      <li *ngFor="let todo of todos">
+        <mat-icon>{{ todo.completed ? "check" : "close" }}</mat-icon>
+        {{ todo.name }}
+      </li>
+      <li class="mt-20">
+        <b>Tell us your awesome ideas to improve this service !</b>
+      </li>
+    </ul>
+  </mat-card>
+</div>

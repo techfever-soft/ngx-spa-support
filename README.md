@@ -1,4 +1,18 @@
-# @techfever/ngxSpaSupport
+# 📲 @techfever/ngxSpaSupport
+
+A package to help you to build more easily single page applications
+
+#
+
+[DEMO](https://ngx-spa-support.firebaseapp.com/)
+
+## Getting started
+
+`npm i -s ngx-star-review`
+
+Examples are in the documentation of the demo
+
+#
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.2.
 

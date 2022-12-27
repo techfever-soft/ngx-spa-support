@@ -9,20 +9,62 @@
         mat-button
         href="javascript:void(0)"
         (click)="triggerScroll(item)"
-        >{{ item.data["title"] }}</a
+      >
+        <mat-icon>{{ item.data["icon"] }}</mat-icon> {{ item.data["title"] }}</a
       >
       <a
         *ngIf="item.active"
         mat-raised-button
         color="accent"
         href="javascript:void(0)"
-        ><mat-icon>check_circle</mat-icon> {{ item.data["title"] }}</a
+      >
+        <mat-icon>{{ item.data["icon"] }}</mat-icon> {{ item.data["title"] }}</a
       >
     </li>
   </ul>
 </div>
 
 <div class="scrollable-sections" id="scrollable">
+  <section id="link0">
+    <mat-card>
+      <div class="caption">
+        <img src="/assets/techfever-logo.svg" alt="TechFever logo" />
+        <h2 class="mat-h2">📲 ngx-spa-support</h2>
+        <p class="mat-caption">
+          A package to simplify the use of single page applications
+        </p>
+
+        
+        <div>
+          <a mat-button href="//techfever.dev" target="_blank">
+            <mat-icon>link</mat-icon> Our latest projects
+          </a>
+        </div>
+
+        <div class="mt-10 mb-10">
+          <a mat-button color="accent" disabled>
+            <mat-icon>link</mat-icon> Support our work (soon)
+          </a>
+        </div>
+
+        <div class="mt-10 mb-10">
+          <a mat-button color="primary" (click)="changeTab(1)">
+            <mat-icon>description</mat-icon> Go to documentation
+          </a>
+        </div>
+
+        <div>
+          <button
+            mat-button
+            color="accent"
+            (click)="triggerScrollById('#link1')"
+          >
+            <mat-icon>arrow_downward</mat-icon> Go to next section
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </section>
   <section id="link1">
     <mat-card>
       <div class="text-center mat-typography">
@@ -67,12 +109,8 @@
             <mat-icon>arrow_downward</mat-icon> Go to next section
           </button>
         </div>
-        <div>
-          <button
-            mat-button
-            color="accent"
-            (click)="triggerScrollById('#link3')"
-          >
+        <div class="mt-10">
+          <button mat-button color="accent" (click)="triggerLastAnchor()">
             <mat-icon>last_page</mat-icon> Go to last section
           </button>
         </div>
@@ -123,7 +161,7 @@
             <mat-icon>arrow_upward</mat-icon> Go to previous section
           </button>
         </div>
-        <div>
+        <div class="mt-10">
           <button
             mat-button
             color="accent"
@@ -157,32 +195,24 @@
             </button>
           </div>
           <div>
-            <button
-              mat-button
-              color="accent"
-              (click)="triggerScrollById('#link1')"
-            >
+            <button mat-button color="accent" (click)="triggerFirstAnchor()">
               <mat-icon>first_page</mat-icon> Go to first section
+            </button>
+          </div>
+          <div class="mt-10 mb-10">
+            <button mat-button color="accent" (click)="triggerPreviousAnchor()">
+              <mat-icon>arrow_upward</mat-icon> Go to previous section
             </button>
           </div>
           <div>
             <button
               mat-button
               color="accent"
-              (click)="triggerPreviousAnchor()"
+              (click)="triggerNextAnchor()"
+              [disabled]="!dynamicSections.length"
             >
-              <mat-icon>arrow_upward</mat-icon> Go to previous section
+              <mat-icon>arrow_downward</mat-icon> Go to next section
             </button>
-            <div>
-              <button
-                mat-button
-                color="accent"
-                (click)="triggerNextAnchor()"
-                [disabled]="!dynamicSections.length"
-              >
-                <mat-icon>arrow_downward</mat-icon> Go to next section
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -213,7 +243,7 @@
         <mat-icon>arrow_upward</mat-icon> Go to previous section
       </button>
     </div>
-    <div>
+    <div class="mt-10">
       <button
         mat-button
         color="accent"

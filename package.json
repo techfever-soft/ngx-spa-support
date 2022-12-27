@@ -38,5 +38,22 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^15.0.0",
     "typescript": "~4.8.2"
-  }
+  },
+  "description": "A package to help you to build more easily single page applications",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techfever-soft/ngx-spa-support.git"
+  },
+  "keywords": [
+    "ngx",
+    "spa",
+    "single-page"
+  ],
+  "author": "dcmate",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/techfever-soft/ngx-spa-support/issues"
+  },
+  "homepage": "https://github.com/techfever-soft/ngx-spa-support#readme"
 }

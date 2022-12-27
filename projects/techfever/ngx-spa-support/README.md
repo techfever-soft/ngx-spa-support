@@ -8,7 +8,7 @@ A package to help you to build more easily single page applications
 
 ## Getting started
 
-`npm i -s ngx-star-review`
+`npm i -s ngx-spa-support`
 
 Examples are in the documentation of the demo
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { MenuConfig, MenuItem } from './interfaces/menu.interface';
+import { MenuConfig, MenuItem } from './ngx-spa-support.interface';
 
 @Injectable({
   providedIn: 'root',

@@ -46,9 +46,14 @@
     "url": "git+https://github.com/techfever-soft/ngx-spa-support.git"
   },
   "keywords": [
+    "angular",
     "ngx",
     "spa",
-    "single-page"
+    "spa service",
+    "single-page-application",
+    "single-page-support",
+    "single-page",
+    "single-page-service"
   ],
   "author": "dcmate",
   "license": "ISC",

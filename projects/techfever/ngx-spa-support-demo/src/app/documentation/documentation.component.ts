@@ -236,7 +236,7 @@ export class ExampleComponent implements OnInit {
 `;
 
   public get serviceMethods(): any[] {
-    return [
+    const rawMethods = [
       {
         name: 'getActiveItem',
         description:
@@ -314,10 +314,12 @@ export class ExampleComponent implements OnInit {
         signature: '(): void',
       },
     ];
+
+    return rawMethods.sort((one, two) => (one.name > two.name ? 1 : -1));
   }
 
   public get interfaces(): any[] {
-    return [
+    const rawInterfaces = [
       {
         name: 'MenuConfig',
         properties: [
@@ -373,6 +375,17 @@ export class ExampleComponent implements OnInit {
         ],
       },
     ];
+
+    let newInterfaces: any[] = [];
+
+    rawInterfaces.forEach((i) => {
+      i.properties = i.properties.sort((one, two) =>
+        one.name > two.name ? 1 : -1
+      );
+      newInterfaces.push(i);
+    });
+
+    return newInterfaces.sort((one, two) => (one.name > two.name ? 1 : -1));
   }
 
   public get todos(): any[] {
@@ -383,7 +396,7 @@ export class ExampleComponent implements OnInit {
       },
       {
         name: 'Auto scroll to previous and next sections',
-        completed: false
+        completed: false,
       },
     ];
   }

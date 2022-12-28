@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { NgxSpaSupportComponent } from './ngx-spa-support.component';
-
-
+import { NgxSpaSupportService } from './ngx-spa-support.service';
 
 @NgModule({
   declarations: [
-    NgxSpaSupportComponent
   ],
   imports: [
   ],
+  providers: [
+    NgxSpaSupportService
+  ],
   exports: [
-    NgxSpaSupportComponent
   ]
 })
 export class NgxSpaSupportModule { }

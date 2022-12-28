@@ -10,6 +10,6 @@ export class AppComponent {
   constructor(private ngxSpaService: NgxSpaSupportService) {}
 
   changeTab(event: any) {
-    // this.ngxSpaService.setActiveItem('#link0')
+    this.ngxSpaService.triggerFirstAnchor()
   }
 }

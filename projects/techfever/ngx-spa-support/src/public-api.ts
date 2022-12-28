@@ -3,6 +3,5 @@
  */
 
 export * from './lib/ngx-spa-support.service';
-export * from './lib/ngx-spa-support.component';
 export * from './lib/ngx-spa-support.module';
-export * from './lib/interfaces/menu.interface';
+export * from './lib/ngx-spa-support.interface';

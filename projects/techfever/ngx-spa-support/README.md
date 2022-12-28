@@ -1,6 +1,6 @@
 # 📲 @techfever/ngxSpaSupport
 
-A package to help you to build more easily single page applications
+A package to help you to build more easily single page applications, using scroll anchors.
 
 #
 

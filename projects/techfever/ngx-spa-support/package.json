@@ -1,6 +1,6 @@
 {
   "name": "ngx-spa-support",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0"
@@ -8,7 +8,20 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "description": "A package to help you to build more easily single page applications",
+  "description": "A package to help you to build more easily single page applications, using scroll anchors.",
   "author": "dcmate",
+  "keywords": [
+    "angular",
+    "ngx",
+    "spa",
+    "spa service",
+    "single-page-application",
+    "single-page-support",
+    "single-page",
+    "single-page-service",
+    "scrolling",
+    "scrolling-service",
+    "scrolling-support"
+  ],
   "license": "ISC"
 }

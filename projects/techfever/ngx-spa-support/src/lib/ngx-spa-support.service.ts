@@ -13,6 +13,7 @@ export class NgxSpaSupportService {
     menu: [],
     scrollingBehavior: 'auto',
     useMenuScrolling: false,
+    menuItemMargin: 0,
     sectionMargin: 250,
     linkElementsPrefix: 'link',
     scrollableElementId: 'scrollable',
@@ -437,7 +438,11 @@ export class NgxSpaSupportService {
                 menuItemElement?.getBoundingClientRect().left;
 
               menuElement.scrollTo({
-                left: itemLeftScroll,
+                left:
+                  itemLeftScroll -
+                  (this.currentConfig.menuItemMargin
+                    ? this.currentConfig.menuItemMargin
+                    : 0),
                 behavior: this.getScrollingBehavior(),
               });
             }

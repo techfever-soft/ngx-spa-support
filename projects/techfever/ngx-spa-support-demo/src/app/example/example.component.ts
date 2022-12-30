@@ -74,11 +74,11 @@ export class ExampleComponent implements OnInit {
   };
 
   constructor(private spaService: NgxSpaSupportService) {
-    this.spaService.getMenuItems().subscribe((menu) => {
+    this.spaService.getMenuItems().subscribe((menu: MenuItem[]) => {
       this.subscribedMenu = menu;
     });
 
-    this.spaService.getDynamicMenuItems().subscribe((dynamicMenu) => {
+    this.spaService.getDynamicMenuItems().subscribe((dynamicMenu: MenuItem[]) => {
       this.dynamicSections = dynamicMenu;
     });
   }
@@ -114,7 +114,7 @@ export class ExampleComponent implements OnInit {
       icon: 'bolt',
     };
 
-    this.spaService.pushScrollAnchor(newDynamicItemData, true).then((item) => {
+    this.spaService.pushScrollAnchor(newDynamicItemData, true).then((item: MenuItem) => {
       this.spaService.updateScrollAnchor(item, {
         title: 'New item, last title was "' + item.data['title'] + '"',
       });

@@ -20,6 +20,18 @@ export interface MenuConfig {
    */
   useMenuScrolling?: boolean;
 
+
+  
+  /**
+   * When using menu scrolling, the menu is scrolling to the activee element, but
+   * can be not adjusted to your item because of an element placed before the menu.
+   * (for example a brand link) You can adjust this with this property.
+   *
+   * @type ?number
+   * @default 0
+   */
+  menuItemMargin?: number;
+
   /**
    * The minimum margin between your section anchors (will be used by the scrollspy)
    *

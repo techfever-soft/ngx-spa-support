@@ -336,7 +336,15 @@ export class ExampleComponent implements OnInit {
             type: 'boolean',
           },
           {
-            name: 'sectionMargin?',
+            name: 'menuHorizontalScrollMargin?',
+            type: 'number',
+          },
+          {
+            name: 'sectionVerticalScrollMargin?',
+            type: 'number',
+          },
+          {
+            name: 'sectionDetectionSize?',
             type: 'number',
           },
           {

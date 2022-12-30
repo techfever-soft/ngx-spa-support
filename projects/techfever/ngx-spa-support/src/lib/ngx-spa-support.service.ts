@@ -13,8 +13,9 @@ export class NgxSpaSupportService {
     menu: [],
     scrollingBehavior: 'auto',
     useMenuScrolling: false,
-    menuItemMargin: 0,
-    sectionMargin: 250,
+    menuHorizontalScrollMargin: 0,
+    sectionVerticalScrollMargin: 0,
+    sectionDetectionSize: 250,
     linkElementsPrefix: 'link',
     scrollableElementId: 'scrollable',
     menuElementId: 'menu',
@@ -41,8 +42,8 @@ export class NgxSpaSupportService {
   }
 
   private getSectionMargin(): number {
-    return this.currentConfig.sectionMargin
-      ? this.currentConfig.sectionMargin
+    return this.currentConfig.sectionDetectionSize
+      ? this.currentConfig.sectionDetectionSize
       : 250;
   }
 
@@ -149,8 +150,14 @@ export class NgxSpaSupportService {
     if (itemElement) {
       this.setActiveItem('#' + itemId);
 
+      const totalTop =
+        itemElement.offsetTop -
+        (this.currentConfig.sectionVerticalScrollMargin
+          ? this.currentConfig.sectionVerticalScrollMargin
+          : 0);
+
       scrollElement?.scrollTo({
-        top: itemElement.offsetTop - 70,
+        top: totalTop,
         behavior: this.getScrollingBehavior(),
       });
     } else {
@@ -182,8 +189,14 @@ export class NgxSpaSupportService {
     if (itemElement) {
       this.setActiveItem('#' + itemId);
 
+      const totalTop =
+        itemElement.offsetTop -
+        (this.currentConfig.sectionVerticalScrollMargin
+          ? this.currentConfig.sectionVerticalScrollMargin
+          : 0);
+
       scrollElement?.scrollTo({
-        top: itemElement.offsetTop - 70,
+        top: totalTop,
         behavior: this.getScrollingBehavior(),
       });
     } else {
@@ -440,8 +453,8 @@ export class NgxSpaSupportService {
               menuElement.scrollTo({
                 left:
                   itemLeftScroll -
-                  (this.currentConfig.menuItemMargin
-                    ? this.currentConfig.menuItemMargin
+                  (this.currentConfig.menuHorizontalScrollMargin
+                    ? this.currentConfig.menuHorizontalScrollMargin
                     : 0),
                 behavior: this.getScrollingBehavior(),
               });
@@ -451,7 +464,6 @@ export class NgxSpaSupportService {
 
         // TODO
         // if (this.currentConfig.fullSectionScroll) {
-
         // }
       }
       newMenu.push(menuItem);

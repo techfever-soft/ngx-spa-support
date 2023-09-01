@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    clear: both;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+ngx-spa-support {
+    ngx-spa-support-menu {
+        position: fixed;
+        top: 100px;
+        a.active {
+            background: blue;
+        }
+    }
+    ngx-spa-support-scrollable {
+        display: block;
+        height: 100%;
+        overflow: auto;
+
+        section {
+            height: 100%;
+            &:nth-child(1) {
+                background: red;
+            }
+            &:nth-child(2) {
+                background: orange;
+            }
+        }
+    }
+}

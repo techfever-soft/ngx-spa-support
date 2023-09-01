@@ -1,0 +1,22 @@
+<ngx-spa-support [config]="spaConfig">
+  <ngx-spa-support-menu>
+    <!-- <div *ngFor="let menuItem of menuItems">
+      {{ menuItem | json }}
+    </div> -->
+    <a ngxAnchor="mySection1">Go to section 1</a>
+    <a ngxAnchor="mySection2">Go to section 2</a>
+    <!-- You own menu items -->
+  </ngx-spa-support-menu>
+
+  <ngx-spa-support-scrollable>
+    <section id="mySection1">
+      <!--- Your own content -->
+      test
+    </section>
+    <section id="mySection2">
+      <!--- Your own content -->
+      test2
+    </section>
+    <!-- Your own sections -->
+  </ngx-spa-support-scrollable>
+</ngx-spa-support>

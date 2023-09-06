@@ -1,3 +1,44 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ngx-spa-support-demo-primary: mat.define-palette(mat.$green-palette);
+$ngx-spa-support-demo-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ngx-spa-support-demo-warn: mat.define-palette(mat.$red-palette);
+
+$ngx-spa-support-typography: mat.define-typography-config(
+    $font-family: "Montserrat"
+);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ngx-spa-support-demo-theme: mat.define-dark-theme(
+    (
+        color: (
+            primary: $ngx-spa-support-demo-primary,
+            accent: $ngx-spa-support-demo-accent,
+            warn: $ngx-spa-support-demo-warn
+        ),
+        typography: $ngx-spa-support-typography
+    )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($ngx-spa-support-demo-theme);
+
 /* You can add global styles to this file, and also import other style files */
 * {
     clear: both;
@@ -11,28 +52,100 @@ body {
 
 body {
     margin: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.mat-typography {
+    font-family: "Montserrat", sans-serif;
+}
+
+.mat-toolbar {
+    display: block;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.text-muted {
+    opacity: 0.5;
+}
+
+.config-menu {
+    position: fixed;
+    bottom: 0;
+    margin: 0 auto;
+    width: 100%;
+    z-index: 1;
+    .mat-mdc-card {
+        padding: 10px;
+        width: fit-content;
+        margin: 0 auto;
+        form {
+            margin-top: 25px;
+        }
+    }
+}
+
+.mat-mdc-form-field-text-suffix {
+    color: #fff;
 }
 
 ngx-spa-support {
+    display: block;
+    height: calc(100% - 64px);
+    @media screen and (max-width: 599.98px) {
+        height: calc(100% - 56px);
+    }
+
     ngx-spa-support-menu {
-        position: fixed;
-        top: 100px;
-        a.active {
-            background: blue;
+        width: 100%;
+        .my-menu {
+            display: inline-flex;
+            overflow: auto;
+            position: relative;
+            width: 100%;
+            overflow-y: hidden;
         }
     }
     ngx-spa-support-scrollable {
         display: block;
         height: 100%;
         overflow: auto;
+        background: #424242;
 
         section {
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 25px;
+            text-align: center;
+
             &:nth-child(1) {
-                background: red;
+                background: rgba(0, 0, 0, 0.4);
             }
             &:nth-child(2) {
-                background: orange;
+                background: rgba(0, 0, 0, 0.3);
+            }
+            &:nth-child(3) {
+                background: rgba(0, 0, 0, 0.2);
+            }
+            &:nth-child(n + 3) {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            .mat-mdc-card {
+                padding: 10px;
+                color: #fff;
+                .badges {
+                    display: inline-flex;
+                    justify-content: center;
+                    img.badge {
+                        width: 100px;
+                    }
+                }
             }
         }
     }

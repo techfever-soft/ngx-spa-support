@@ -1,22 +1,174 @@
 <ngx-spa-support [config]="spaConfig">
-  <ngx-spa-support-menu>
-    <!-- <div *ngFor="let menuItem of menuItems">
-      {{ menuItem | json }}
-    </div> -->
-    <a ngxAnchor="mySection1">Go to section 1</a>
-    <a ngxAnchor="mySection2">Go to section 2</a>
-    <!-- You own menu items -->
-  </ngx-spa-support-menu>
+  <mat-toolbar color="primary">
+    <ngx-spa-support-menu>
+      <div class="my-menu">
+        <div *ngFor="let menuItem of menuItems">
+          <span *ngIf="menuItem.active">
+            <button mat-raised-button [ngxAnchor]="menuItem.link">
+              {{ menuItem.data["label"] }}
+            </button>
+          </span>
+          <span *ngIf="!menuItem.active">
+            <button mat-button [ngxAnchor]="menuItem.link">
+              {{ menuItem.data["label"] }}
+            </button>
+          </span>
+        </div>
+      </div>
+    </ngx-spa-support-menu></mat-toolbar
+  >
 
   <ngx-spa-support-scrollable>
-    <section id="mySection1">
-      <!--- Your own content -->
-      test
+    <section
+      [id]="section.link"
+      *ngFor="let section of menuItems; let index = index"
+    >
+      <span *ngIf="index === 0">
+        <mat-card>
+          <h3 class="mat-h3">Hello world</h3>
+          <button
+            mat-button
+            (click)="goToLastSection()"
+            [disabled]="currentIndex === menuItems.length - 1"
+          >
+            <mat-icon>arrow_downward</mat-icon> Go downward
+          </button>
+        </mat-card>
+      </span>
+      <span *ngIf="index === 1">
+        <mat-card>
+          <h2 class="mat-h2">📲 ngx-spa-support</h2>
+
+          <div class="badges">
+            <img
+              src="https://img.shields.io/npm/v/ngx-spa-support"
+              alt="version"
+              class="badge"
+            />
+            <img
+              src="https://img.shields.io/npm/dt/ngx-spa-support"
+              alt="downloads"
+              class="badge"
+            />
+          </div>
+
+          <p class="mat-caption text-muted">
+            A package to simplify the usage of scroll anchors in SPAs
+            (single-pages-apps)
+          </p>
+
+          <button mat-button (click)="goToFirstSection()">
+            <mat-icon>arrow_upward</mat-icon> Go upward
+          </button>
+          <button mat-raised-button color="accent" (click)="onAddSection()">
+            <mat-icon>add</mat-icon> Add a section
+          </button>
+          <button
+            mat-button
+            (click)="goToLastSection()"
+            [disabled]="currentIndex === menuItems.length - 1"
+          >
+            <mat-icon>arrow_downward</mat-icon> Go downward
+          </button>
+        </mat-card>
+      </span>
+      <span *ngIf="index > 1">
+        <mat-card>
+          <h3 class="mat-h3">Dynamic item #{{ index + 1 }}</h3>
+          <button mat-button (click)="goToFirstSection()">
+            <mat-icon>arrow_upward</mat-icon> Go upward
+          </button>
+          <button
+            mat-raised-button
+            (click)="onRemoveSection(section.link)"
+            [disabled]="!section.removable"
+            color="warn"
+          >
+            <mat-icon>delete</mat-icon> Remove item
+          </button>
+        </mat-card>
+      </span>
+      <!-- <mat-card>
+        <button
+          mat-button
+          (click)="onRemoveSection(section.link)"
+          [disabled]="!section.removable"
+          color="warn"
+        >
+          <mat-icon>delete</mat-icon> Remove section
+        </button>
+        <button mat-button color="accent" (click)="onAddSection()">
+          <mat-icon>add</mat-icon> Add a section
+        </button>
+        <button
+          mat-button
+          (click)="goToFirstSection()"
+          [disabled]="currentIndex === 0"
+        >
+          <mat-icon>arrow_upward</mat-icon> Go to first section
+        </button>
+        <button
+          mat-button
+          (click)="goToLastSection()"
+          [disabled]="currentIndex === menuItems.length - 1"
+        >
+          <mat-icon>arrow_downward</mat-icon> Go to last section
+        </button>
+      </mat-card> -->
     </section>
-    <section id="mySection2">
-      <!--- Your own content -->
-      test2
-    </section>
-    <!-- Your own sections -->
   </ngx-spa-support-scrollable>
+
+  <div class="config-menu" [@toggleConfig]="configOpened ? 'opened' : 'closed'">
+    <mat-card>
+      <button mat-button (click)="onToggleConfig()">
+        <mat-icon>{{
+          configOpened ? "keyboard_arrow_down" : "keyboard_arrow_up"
+        }}</mat-icon>
+        {{ configOpened ? "Close config" : "Open config" }}
+      </button>
+
+      <form [formGroup]="optionsFormGroup">
+        <div>
+          <mat-checkbox formControlName="scrollOnCreated">
+            Auto trigger on item creation</mat-checkbox
+          >
+        </div>
+        <div>
+          <mat-checkbox formControlName="scrollSnapping"
+            >Scroll snapping (v1.0)</mat-checkbox
+          >
+        </div>
+
+        <div>
+          <mat-form-field class="w-100">
+            <mat-label>Scroll behavior</mat-label>
+            <mat-select formControlName="scrollBehavior">
+              <mat-option value="auto">Auto</mat-option>
+              <mat-option value="smooth">Smooth</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="w-100">
+            <mat-label>Section detection size</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="sectionDetectionSize"
+            />
+            <span matTextSuffix>px</span>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="w-100">
+            <mat-label>Section offset</mat-label>
+            <input matInput type="number" formControlName="sectionOffset" />
+            <span matTextSuffix>px</span>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card>
+  </div>
 </ngx-spa-support>

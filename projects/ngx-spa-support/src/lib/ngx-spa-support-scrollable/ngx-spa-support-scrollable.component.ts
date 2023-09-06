@@ -16,6 +16,7 @@ export class NgxSpaSupportScrollableComponent {
     this.spaService.registerScrollableContainer(this.elementRef.nativeElement);
 
     this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
+      
       this.spaService.updateCurrentSection();
     });
   }

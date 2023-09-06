@@ -10,60 +10,88 @@ A package to help you to build more easily single page applications, using scrol
 
 ![](https://img.shields.io/npm/dt/ngx-spa-support)
 
-# Breaking changes
+# Demo
+
+[SEE DEMO](https://ngx-spa-support.web.app/)
+
+![demo capture](https://firebasestorage.googleapis.com/v0/b/ngx-spa-support.appspot.com/o/ngx-spa-support.png?alt=media&token=d79d2209-4fb7-4150-bd48-40686250b985)
+
+# Features
+
+- [x] Anchor scrolling
+- [x] Menu scroll-spy
+- [x] Dynamic anchors **(v2)**
+- [x] Scroll snapping **(NEW)**
+- [ ] Menu horizontal scrolling - `Soon`
+- [ ] Keyboard navigation
+- [ ] Custom transitions
+- [ ] Infinite scroll
+- [ ] Section horizontal scrolling
+
+## Breaking changes
 
 - NgxSpaSupport is now a component. Please use version 16.0.7 to use the full-service
-- Other options will arrive soon...
+- Please use `*ngFor` to generate your menu items and dynamic items at the same time
 
-## Demo and documentation
-
-@see [DEMO & DOCUMENTATION](https://ngx-spa-support.firebaseapp.com/)
-
-## Getting Started
-
-`npm i -s ngx-spa-support`
-
-## Usage
+# Basic example
 
 Template part
 
 ```
- <ngx-spa-support [config]="spaConfig">
-    <ngx-spa-support-menu>
-      <a ngxAnchor="mySection1" ngxAnchorActiveClass="active">Go to section 1</a>
-      <a ngxAnchor="mySection2" ngxAnchorActiveClass="active">Go to section 2</a>
-      <!-- You own menu items -->
-    </ngx-spa-support-menu>
+<ngx-spa-support [config]="spaConfig">
+  <ngx-spa-support-menu>
+    <a *ngFor="let menuItem of menuItems" [ngxAnchor]="menuItem.link">
+      {{ menuItem.data["label"] }}
+    </a>
+  </ngx-spa-support-menu>
 
-    <ngx-spa-support-scrollable>
-        <section id="mySection1">
-            My section 1
-        </section>
-        <section id="mySection2">
-            My section 2
-        </section>
-        <!-- Your own sections -->
-    </ngx-spa-support-scrollable>
+  <ngx-spa-support-scrollable>
+    <section [id]="section.link" *ngFor="let section of menuItems">
+      {{ section | json }}
+    </section>
+  </ngx-spa-support-scrollable>
 </ngx-spa-support>
 ```
 
-TypeScript part
+TypeScript
 
 ```
   public spaConfig: NgxSpaSupportConfig = {
     menu: <NgxSpaSupportMenuItem[]>[
       {
-        link: '#mySection1',
-        active: true,
+        link: 'mySection1',
+        active: false,
+        removable: false,
+        data: {
+          label: 'My first section',
+        },
       },
       {
-        link: '#mySection2',
+        link: 'mySection2',
         active: true,
+        removable: true,
+        data: {
+          label: 'My second section',
+        },
       },
     ],
     scrollBehavior: 'smooth',
-    // Other options will follow soon...
+    sectionDetectionSize: 250,
+    scrollOnCreated: true,
+    scrollSnapping: true,
   };
+
+  constructor(
+    private spaService: NgxSpaSupportService
+  ) {
+    this.spaService
+      .getMenuItems()
+      .subscribe((menuItems: NgxSpaSupportMenuItem[]) => {
+        this.menuItems = menuItems;
+      });
+  }
+
+
 ```
 
 Style part (SCSS)
@@ -89,6 +117,7 @@ ngx-spa-support {
         top: 100px;
         a.active {
             background: blue;
+            color: #fff;
         }
     }
     ngx-spa-support-scrollable {
@@ -99,14 +128,18 @@ ngx-spa-support {
         section {
             height: 100%;
             &:nth-child(1) {
-                background: red;
+                background: #858585;
             }
             &:nth-child(2) {
-                background: orange;
+                background: #afafaf;
+            }
+            &:nth-child(n + 3) {
+                background: #dddddd;
             }
         }
     }
 }
+
 
 ```
 

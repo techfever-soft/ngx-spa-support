@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+ngx-spa-support {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  //   height: calc(100% - 64px);
+  //   @media screen and (max-width: 599.98px) {
+  //     height: calc(100% - 56px);
+  //   }
+
+  ngx-spa-support-menu {
+    width: 100%;
+    .my-menu {
+      display: inline-flex;
+      overflow: auto;
+      position: relative;
+      width: 100%;
+      overflow-y: hidden;
+    }
+  }
+  ngx-spa-support-scrollable {
+    display: block;
+    height: 100%;
+    overflow: auto;
+    background: #424242;
+    
+    section {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 25px;
+      text-align: center;
+
+      &:nth-child(1) {
+        background: rgba(0, 0, 0, 0.4);
+      }
+      &:nth-child(2) {
+        background: rgba(0, 0, 0, 0.3);
+      }
+      &:nth-child(3) {
+        background: rgba(0, 0, 0, 0.2);
+      }
+      &:nth-child(n + 3) {
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .mat-mdc-card {
+        padding: 10px;
+        color: #fff;
+        .badges {
+          display: inline-flex;
+          justify-content: center;
+          img.badge {
+            width: 100px;
+          }
+        }
+      }
+    }
+  }
+}

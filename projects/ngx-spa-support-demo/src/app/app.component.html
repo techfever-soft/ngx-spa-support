@@ -1,0 +1,22 @@
+<ngx-spa-support>
+  <ngx-spa-support-menu>
+    <a *ngFor="let menuItem of menuItems" [ngxSpaAnchor]="menuItem.link">
+      {{ menuItem.data["label"] }}
+    </a>
+  </ngx-spa-support-menu>
+
+  <ngx-spa-support-scrollable>
+    <section [id]="section.link" *ngFor="let section of menuItems">
+      {{ section | json }}
+      <input
+        type="checkbox"
+        name="scrollSnapping"
+        id=""
+        (change)="onToggleScrollSnaping()"
+      />
+      <label for="scrollSnapping">Scroll snapping</label>
+      <button ngxSpaAnchorUpward>Go upward</button>
+      <button ngxSpaAnchorDownward>Go downward</button>
+    </section>
+  </ngx-spa-support-scrollable>
+</ngx-spa-support>

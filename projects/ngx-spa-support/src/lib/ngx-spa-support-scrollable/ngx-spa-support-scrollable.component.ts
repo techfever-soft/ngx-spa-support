@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { NgxSpaSupportService } from '../ngx-spa-support.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { NgxSpaSupportService } from '../ngx-spa-support.service';
   standalone: true,
   imports: [],
   templateUrl: './ngx-spa-support-scrollable.component.html',
-  styleUrl: './ngx-spa-support-scrollable.component.css'
+  styleUrl: './ngx-spa-support-scrollable.component.css',
 })
 export class NgxSpaSupportScrollableComponent {
   constructor(
@@ -15,8 +15,11 @@ export class NgxSpaSupportScrollableComponent {
     private renderer: Renderer2
   ) {
     this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
-      
       this.spaService.updateCurrentSection();
     });
+  }
+
+  ngAfterViewInit() {
+    this.spaService.updateCurrentSection();
   }
 }

@@ -14,6 +14,8 @@ import { NgxSpaAnchorDirective } from '../../../ngx-spa-support/src/lib/ngx-spa-
 import { NgxSpaSupportMenuComponent } from '../../../ngx-spa-support/src/lib/ngx-spa-support-menu/ngx-spa-support-menu.component';
 import { NgxSpaAnchorUpwardDirective } from '../../../ngx-spa-support/src/lib/ngx-spa-anchor-upward.directive';
 import { NgxSpaAnchorDownwardDirective } from '../../../ngx-spa-support/src/lib/ngx-spa-anchor-downward.directive';
+import { MatCardModule } from "@angular/material/card";
+import { MatCheckboxChange, MatCheckboxModule } from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-root',
@@ -27,6 +29,8 @@ import { NgxSpaAnchorDownwardDirective } from '../../../ngx-spa-support/src/lib/
     NgxSpaAnchorDirective,
     NgxSpaAnchorUpwardDirective,
     NgxSpaAnchorDownwardDirective,
+    MatCardModule,
+    MatCheckboxModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -46,31 +50,53 @@ export class AppComponent {
       {
         link: 'mySection2',
         active: true,
-        removable: true,
+        removable: false,
         data: {
           label: 'My second section',
         },
       },
     ],
+    // loopMode: false,
+    // rubberBandEffect: false,
+    // scrollSnapping: false,
+    scrollOnCreated: true,
     scrollBehavior: 'smooth',
     sectionDetectionSize: 250,
-    scrollOnCreated: true,
-    scrollSnapping: true,
   };
 
-  constructor(private spaService: NgxSpaSupportService) {
+  constructor(private spaService: NgxSpaSupportService) {}
+
+  ngAfterViewInit() {
+    this.spaService.init(this.spaConfig);
+
     this.spaService
       .getMenuItems()
       .subscribe((menuItems: NgxSpaSupportMenuItem[]) => {
         this.menuItems = menuItems;
       });
-  }
 
-  ngAfterViewInit() {
-    this.spaService.setConfig(this.spaConfig);
+    this.spaService.getConfig().subscribe((config: any) => {
+      this.spaConfig = config;
+    });
   }
 
   public onToggleScrollSnaping() {
-    this.spaService.toggleScrollSnapping();
+    // this.spaService.toggleScrollSnapping();
+  }
+
+  public onToggleScrollOnCreated(event: MatCheckboxChange) {
+    this.spaService.toggleScrollOnCreated(event.checked);
+  }
+
+  public addNewSection() {
+    this.spaService.addNewSection();
+  }
+
+  public isFirstSection(index: number) {
+    return index === 0;
+  }
+
+  public isLatestSection(index: number) {
+    return this.menuItems.length - 1 === index;
   }
 }

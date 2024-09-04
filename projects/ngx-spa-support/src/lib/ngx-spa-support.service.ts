@@ -21,6 +21,7 @@ export class NgxSpaSupportService {
   public activeSectionChange: EventEmitter<string> = new EventEmitter<string>();
 
   private scrollableElement!: HTMLElement;
+  private previousScrollTop: number = 0;
 
   constructor() {}
 
@@ -32,14 +33,28 @@ export class NgxSpaSupportService {
     return this.currentIndex.asObservable();
   }
 
-  public setConfig(config: NgxSpaSupportConfig) {
-    this.configSubject.next(config);
-    this.menuItems.next(config.menu);
+  public getConfig() {
+    return this.configSubject.asObservable();
+  }
+
+  public init(config?: NgxSpaSupportConfig) {
+    if (config) {
+      this.configSubject.next(config);
+      this.menuItems.next(config.menu);
+    }
 
     // TODO: Dynamically set the scrollable element
     this.scrollableElement = document.querySelector(
       'ngx-spa-support-scrollable'
     ) as HTMLElement;
+
+    setTimeout(() => {
+      this.configSubject.getValue()?.menu.forEach((section) => {
+        if (section.active) {
+          this.scrollToAnchorId(section.link);
+        }
+      });
+    }, 0);
   }
 
   public setActiveSection(section: string) {
@@ -56,22 +71,56 @@ export class NgxSpaSupportService {
 
       this.scrollableElement.scrollTo({
         top: targetTop,
-        behavior: 'smooth',
+        behavior: this.configSubject.getValue()?.scrollBehavior || 'smooth',
       });
     } else {
       console.error('No anchor found with id "' + id + '"');
     }
   }
 
-  public toggleScrollSnapping() {
+  // public toggleScrollSnapping() {
+  //   const config = this.configSubject.getValue();
+
+  //   if (config) {
+  //     config.scrollSnapping = !config.scrollSnapping;
+  //     this.configSubject.next(config);
+
+  //     if (config.scrollSnapping) {
+  //     }
+  //   }
+  // }
+
+  public toggleScrollOnCreated(state: boolean) {
     const config = this.configSubject.getValue();
 
     if (config) {
-      config.scrollSnapping = !config.scrollSnapping;
+      config.scrollOnCreated = state;
       this.configSubject.next(config);
+    }
+  }
 
-      if (config.scrollSnapping) {
-      }
+  public addNewSection() {
+    const config = this.configSubject.getValue();
+
+    if (config) {
+      const newSection: NgxSpaSupportMenuItem = {
+        link: 'newSection' + (config.menu.length + 1),
+        active: false,
+        removable: true,
+        data: {
+          label: 'New section ' + (config.menu.length + 1),
+        },
+      };
+
+      config.menu.push(newSection);
+      this.configSubject.next(config);
+      this.menuItems.next(config.menu);
+
+      setTimeout(() => {
+        if (config.scrollOnCreated) {
+          this.scrollToAnchorId(newSection.link);
+        }
+      }, 0);
     }
   }
 
@@ -80,9 +129,24 @@ export class NgxSpaSupportService {
 
     if (config) {
       const currentScrollTop = this.scrollableElement.scrollTop;
+      const sectionDetectionSize = config.sectionDetectionSize || 250;
 
-      const currentSectionIndex = config.menu.findIndex((section) => {
-        const sectionElement = document.querySelector(
+      const menuItems = this.menuItems.getValue();
+
+      // if (config.loopMode) {
+      //   // TODO
+      // }
+
+      // if (config.rubberBandEffect) {
+      //   // TODO
+      // }
+
+      // if (config.scrollSnapping) {
+      //   // TODO
+      // }
+
+      menuItems.forEach((section) => {
+        const sectionElement = this.scrollableElement.querySelector(
           '#' + section.link
         ) as HTMLElement;
 
@@ -90,29 +154,17 @@ export class NgxSpaSupportService {
           const sectionTop = sectionElement.offsetTop;
           const sectionBottom = sectionTop + sectionElement.clientHeight;
 
-          return (
-            currentScrollTop >= sectionTop && currentScrollTop < sectionBottom
-          );
+          if (
+            currentScrollTop >= sectionTop - sectionDetectionSize &&
+            currentScrollTop <= sectionBottom - sectionDetectionSize
+          ) {
+            section.active = true;
+          } else {
+            section.active = false;
+          }
         }
-
-        return false;
       });
-
-      this.currentIndex.next(currentSectionIndex);
-
-      if (currentSectionIndex > -1) {
-        this.menuItems.getValue().forEach((section, index) => {
-          section.active = index === currentSectionIndex;
-        });
-
-        this.menuItems.next(this.menuItems.getValue());
-        this.setActiveSection(config.menu[currentSectionIndex].link);
-      } else {
-        console.error('No section found for current scroll position');
-      }
     }
-
-    console.log('Current index: ', this.currentIndex.getValue());
   }
 
   public scrollToPreviousSection() {
@@ -121,11 +173,14 @@ export class NgxSpaSupportService {
       .findIndex((item) => item.active);
 
     const previousItem = this.menuItems.getValue()[activeItemIndex - 1];
+    console.log(previousItem);
 
     if (previousItem) {
       const previousItemId = previousItem.link.includes('#')
         ? previousItem.link.substring(1)
         : previousItem.link;
+
+      console.log(previousItemId);
 
       this.scrollToAnchorId(previousItemId);
     }
@@ -140,6 +195,7 @@ export class NgxSpaSupportService {
     console.log(this.menuItems.getValue());
 
     const nextItem = this.menuItems.getValue()[activeItemIndex + 1];
+    console.log(nextItem);
 
     if (nextItem) {
       const nextItemId = nextItem.link.includes('#')

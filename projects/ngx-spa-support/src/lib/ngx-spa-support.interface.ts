@@ -1,10 +1,13 @@
 export interface NgxSpaSupportConfig {
   menu: NgxSpaSupportMenuItem[];
+  // rubberBandEffect?: boolean;
+  // loopMode?: boolean;
+  // scrollSnapping?: boolean;
   scrollBehavior?: ScrollBehavior;
   sectionDetectionSize?: number;
   scrollOnCreated?: boolean;
-  scrollSnapping?: boolean;
   sectionOffset?: number;
+  lazyLoad?: boolean;
 }
 
 export interface NgxSpaSupportMenuItem {
